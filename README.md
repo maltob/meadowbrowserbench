@@ -1,6 +1,6 @@
 # Meadow Browser Bench
 
-A no-build static benchmark suite for GitHub Pages and embedded browsers. The four pages are independent and work with relative asset paths, so they can be hosted at a project URL such as `https://OWNER.github.io/REPO/`.
+A no-build static benchmark suite for GitHub Pages and embedded browsers. The four pages are independent and work with relative asset paths, so they can be hosted at a project URL such as `https://maltob.github.io/meadowbrowserbench/`.
 
 ## Pages and URL fragments
 
