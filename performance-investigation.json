@@ -1,0 +1,104 @@
+{
+  "schemaVersion": 1,
+  "benchmark": "webbench-3d-performance-investigation",
+  "benchmarkVersion": "webbench-2026-11-05-r4",
+  "sourceRevision": "unversioned-worktree",
+  "hardware": {
+    "gpu": "NVIDIA GeForce RTX 3070 Laptop GPU",
+    "backend": "ANGLE / Direct3D11",
+    "browser": "Chrome 156",
+    "webgl": 2,
+    "antialias": true
+  },
+  "runs": [
+    {
+      "label": "historical-full-baseline",
+      "version": "pre-investigation diagnostics",
+      "scoreGpuFps": 89.9,
+      "gpuFrameMs": { "median": 10.98, "p95": 12.19, "p99": 13.56 },
+      "rafIntervalMs": { "median": 16.7, "p95": 16.8, "p99": 16.8 },
+      "resolution": [1174, 538],
+      "drawCallsPerFrame": 21,
+      "trianglesPerFrame": 8591827,
+      "warmupMs": 1000,
+      "validGpuSamples": null,
+      "warnings": ["Historical run metadata incomplete; no source revision"]
+    },
+    {
+      "label": "full-baseline-prior-query-cadence-1",
+      "version": "current renderer, query every frame",
+      "scoreGpuFps": 46.7,
+      "gpuFrameMs": { "median": 24.3, "p95": 28.59, "p99": 35.79 },
+      "rafIntervalMs": { "median": 16.7, "p95": 33.5, "p99": 50.1 },
+      "resolution": [1174, 538],
+      "drawCallsPerFrame": 21,
+      "trianglesPerFrame": 8606515,
+      "validGpuSamples": 683,
+      "warnings": ["Window focus loss recorded"]
+    },
+    {
+      "label": "full-baseline-prior-query-cadence-2",
+      "version": "current renderer, query every frame",
+      "scoreGpuFps": 48.8,
+      "gpuFrameMs": { "median": 17.13, "p95": 31.06, "p99": 33.68 },
+      "rafIntervalMs": { "median": 16.7, "p95": 33.7, "p99": 50.3 },
+      "resolution": [1174, 538],
+      "drawCallsPerFrame": 21,
+      "trianglesPerFrame": 8606515,
+      "validGpuSamples": 709,
+      "warnings": ["Window focus loss recorded"]
+    },
+    {
+      "label": "no-terrain-isolation",
+      "version": "current renderer, query every frame",
+      "scoreGpuFps": 53.7,
+      "gpuFrameMs": { "median": 14.62, "p95": 28.79, "p99": 30.53 },
+      "rafIntervalMs": { "median": 16.7, "p95": 33.5, "p99": 50.1 },
+      "resolution": [1174, 538],
+      "drawCallsPerFrame": 21,
+      "trianglesPerFrame": 8220079,
+      "validGpuSamples": 771,
+      "warnings": ["Diagnostic isolation; window focus loss recorded"]
+    },
+    {
+      "label": "updated-full-baseline",
+      "version": "every-fourth-frame GPU query, telemetry on",
+      "scoreGpuFps": 87.5,
+      "gpuFrameMs": { "median": 11.39, "p95": 12.3, "p99": 14.57 },
+      "cpuSubmissionMs": { "median": 0.2, "p95": 0.4, "p99": 0.5 },
+      "rafIntervalMs": { "median": 16.7, "p95": 16.8, "p99": 16.8 },
+      "resolution": [1174, 538],
+      "drawCallsPerFrame": 21,
+      "trianglesPerFrame": 8606515,
+      "validGpuSamples": 225,
+      "submittedGpuQueries": 225,
+      "warmupMs": 5000,
+      "measuredDurationMs": 15000,
+      "warnings": ["Window focus warning reported by browser automation"]
+    },
+    {
+      "label": "updated-full-baseline-telemetry-off",
+      "version": "every-fourth-frame GPU query, detailed telemetry off",
+      "scoreGpuFps": 86.3,
+      "gpuFrameMs": { "median": 11.58, "p95": 12.42, "p99": 12.93 },
+      "resolution": [1174, 538],
+      "drawCallsPerFrame": null,
+      "trianglesPerFrame": null,
+      "validGpuSamples": 225,
+      "submittedGpuQueries": 225,
+      "warmupMs": 5000,
+      "measuredDurationMs": 15000,
+      "warnings": ["Detailed telemetry disabled", "Window focus warning reported by browser automation"]
+    },
+    {
+      "label": "no-contact-isolation",
+      "version": "current renderer, query every frame",
+      "scoreGpuFps": 31.2,
+      "gpuFrameMs": { "median": 12.7, "p95": 165.733376, "p99": 250.718208 },
+      "rafIntervalMs": { "median": 16.7, "p95": 150.1, "p99": 250.2 },
+      "validGpuSamples": 425,
+      "warnings": ["Diagnostic isolation", "Severe RAF/GPU tail latency and focus loss; exclude from comparisons"]
+    }
+  ],
+  "conclusion": "The older low scores coincide with focus/scheduling warnings and large frame-time tails. A stable updated run is 87.5 GPU FPS versus the historical 89.9, with near-matching GPU-time distributions and equivalent workload counts. The exact cause cannot be proven without the original source revision and controlled five-run A/B/A data."
+}
